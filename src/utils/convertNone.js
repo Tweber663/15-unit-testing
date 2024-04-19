@@ -1,7 +1,5 @@
-import { useState } from "react"
-export const convertNone = (from, amount) => {
-    
-    const [type, setType]
 
-    from = 'USD'? 
+export const convertNone = (from, amount) => {
+    return from === 'USD' ? `$ ${amount}.00` : `PLN ${amount}.00`;
 }
+

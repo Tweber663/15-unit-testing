@@ -38,7 +38,7 @@ describe('Component ResultBox', () => {
 
         const resultBox = screen.getByTestId('output');
         
-        expect(resultBox).toHaveTextContent('$100.00 = PLN 350.00');
+        expect(resultBox).toHaveTextContent('$ 100.00 = PLN 350.00');
     });
 
     it('USD -> PLN conversion should return correct values in multiple tests', () => {
@@ -55,16 +55,30 @@ describe('Component ResultBox', () => {
 
             const output = screen.getByTestId('output');
 
-            expect(output).toHaveTextContent(`$${test.amount}.00 = PLN ${test.expect}`);
+            expect(output).toHaveTextContent(`$ ${test.amount}.00 = PLN ${test.expect}`);
 
             cleanup();
         });
     });
 
-    it('USD -> USD or PLN -> PLN should not convert and return the same value', () => {
-        render(<ResultBox from="PLN" to="PLN" amount={100}/>);
+    it('USD -> USD || PLN -> PLN should not convert and return the same value', () => {
 
-        
+        const testBench = [
+            {symbol: 'PLN', from: 'PLN', to: 'PLN', amount: 5},
+            {symbol: 'PLN', from: 'PLN', to: 'PLN', amount: 110},
+            {symbol: 'PLN', from: 'PLN', to: 'PLN', amount: 12},
+            {symbol: '$', from: 'USD', to: 'USD', amount: 87},
+            {symbol: '$', from: 'USD', to: 'USD', amount: 10},
+            {symbol: '$', from: 'USD', to: 'USD', amount: 90},
+        ]
+
+        testBench.forEach((test) => {
+            render(<ResultBox from={test.from} to={test.to} amount={test.amount}/>);
+            const output = screen.getByTestId('output');
+            expect(output).toHaveTextContent(`${test.symbol} ${test.amount}.00 = ${test.symbol} ${test.amount}.00`);
+            cleanup();
+        })
+
     });
 
 });

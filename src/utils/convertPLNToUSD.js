@@ -5,13 +5,16 @@ export const convertPLNToUSD = (PLN) => {
       style: 'currency',
       currency: 'USD'
     });
-    return formatter.format(PLNtoUSD).replace(/\u00a0/g, ' ');
+
+   const amount = formatter.format(PLNtoUSD).replace(/\u00a0/g, ' ').split('');
+   amount[0] += ' ';
+   return amount.join('');
   } else if (typeof PLN === 'string') {
     return NaN
   } else if (typeof PLN !== 'number' && PLN !== undefined ) {
     return 'Error';
   } else if (typeof PLN === 'number' && PLN < 0) {
-    return '$0.00';
+    return '$ 0.00';
   } else {
     return NaN
   }

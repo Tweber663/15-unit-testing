@@ -13,8 +13,6 @@ const CurrencyBox = () => {
     setData(data);
   }
 
-  console.log(data);
-
   return (
     <main>
       <CurrencyForm action={handleDataChange} />

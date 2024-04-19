@@ -5,5 +5,11 @@ export const formatAmountInCurrency = (amount, currency) => {
     currency,
   });
 
-  return formatter.format(amount).replace(/\u00a0/g, ' ');
+   const part = formatter.format(amount).replace(/\u00a0/g, ' ').split('');
+   if (currency === 'USD') {
+    part[0] += ' ';
+    return part.join('');
+   } else {
+    return part
+   }
 };
